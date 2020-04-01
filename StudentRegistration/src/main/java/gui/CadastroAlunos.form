@@ -26,20 +26,27 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cadastroAlunosNome" max="32767" attributes="0"/>
                   <Component id="cadastroAlunosCurso" max="32767" attributes="0"/>
-                  <Component id="cadastroAlunosTelefone" alignment="0" max="32767" attributes="0"/>
-                  <Component id="cadastroAlunosMatricula" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cadastroAlunosTitulo" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="cadastroAlunosSalvar" min="-2" pref="146" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cadastroAlunosCancelar" min="-2" pref="146" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="cadastroAlunosTitulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cadastroAlunosSalvar" min="-2" pref="148" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="cadastroAlunosCancelar" pref="160" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="cadastroAlunosMatricula" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cadastroAlunosLabelTelefone" min="-2" max="-2" attributes="0"/>
+                          <Component id="cadastroAlunosLabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cadastroAlunosNome" alignment="1" max="32767" attributes="0"/>
+                          <Component id="cadastroAlunosTelefone" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,18 +58,24 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cadastroAlunosTitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="cadastroAlunosNome" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="cadastroAlunosCurso" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="cadastroAlunosTelefone" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="cadastroAlunosMatricula" min="-2" pref="33" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cadastroAlunosSalvar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="cadastroAlunosCancelar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="cadastroAlunosNome" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="cadastroAlunosLabelNome" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cadastroAlunosTelefone" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="cadastroAlunosLabelTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="cadastroAlunosCancelar" pref="32" max="32767" attributes="0"/>
+                  <Component id="cadastroAlunosSalvar" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -79,9 +92,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cadastroAlunosNome">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nome"/>
-      </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cadastroAlunosNomeFocusLost"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cadastroAlunosNomeMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroAlunosNomeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cadastroAlunosCurso">
       <Properties>
@@ -103,9 +118,6 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="cadastroAlunosTelefone">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="(00) 00000-0000"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroAlunosTelefoneActionPerformed"/>
       </Events>
@@ -114,7 +126,7 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Situa&#xe7;&#xe3;o da matr&#xed;cula..."/>
+            <StringItem index="0" value="Matr&#xed;cula..."/>
             <StringItem index="1" value="Ativa"/>
             <StringItem index="2" value="Inativa"/>
           </StringArray>
@@ -131,6 +143,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroAlunosSalvarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cadastroAlunosCancelar">
       <Properties>
@@ -139,6 +154,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroAlunosCancelarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cadastroAlunosLabelTelefone">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telefone"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cadastroAlunosLabelNome">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nome"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

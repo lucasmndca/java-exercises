@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
+
+import javax.swing.JOptionPane;
+import service.alunos.Alunos;
+import service.alunos.AlunosFormValidation;
+import service.constants.Constants;
 
 /**
  *
@@ -34,13 +34,29 @@ public class CadastroAlunos extends javax.swing.JFrame {
         cadastroAlunosMatricula = new javax.swing.JComboBox<>();
         cadastroAlunosSalvar = new javax.swing.JButton();
         cadastroAlunosCancelar = new javax.swing.JButton();
+        cadastroAlunosLabelTelefone = new javax.swing.JLabel();
+        cadastroAlunosLabelNome = new javax.swing.JLabel();
 
         setResizable(false);
 
         cadastroAlunosTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cadastroAlunosTitulo.setText("Cadastro de alunos");
 
-        cadastroAlunosNome.setText("Nome");
+        cadastroAlunosNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cadastroAlunosNomeFocusLost(evt);
+            }
+        });
+        cadastroAlunosNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastroAlunosNomeMouseClicked(evt);
+            }
+        });
+        cadastroAlunosNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastroAlunosNomeActionPerformed(evt);
+            }
+        });
 
         cadastroAlunosCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Curso...", "Informática", "Inglês", "Espanhol", "Alemão" }));
         cadastroAlunosCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -49,17 +65,21 @@ public class CadastroAlunos extends javax.swing.JFrame {
             }
         });
 
-        cadastroAlunosTelefone.setText("(00) 00000-0000");
         cadastroAlunosTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastroAlunosTelefoneActionPerformed(evt);
             }
         });
 
-        cadastroAlunosMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Situação da matrícula...", "Ativa", "Inativa" }));
+        cadastroAlunosMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matrícula...", "Ativa", "Inativa" }));
 
         cadastroAlunosSalvar.setIcon(new javax.swing.ImageIcon("C:\\Users\\LucasDias\\Desktop\\StudentRegistration\\src\\main\\images\\iconfinder_Yes_132693.png")); // NOI18N
         cadastroAlunosSalvar.setText("Salvar");
+        cadastroAlunosSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastroAlunosSalvarActionPerformed(evt);
+            }
+        });
 
         cadastroAlunosCancelar.setText("Cancelar");
         cadastroAlunosCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +88,10 @@ public class CadastroAlunos extends javax.swing.JFrame {
             }
         });
 
+        cadastroAlunosLabelTelefone.setText("Telefone");
+
+        cadastroAlunosLabelNome.setText("Nome");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,18 +99,23 @@ public class CadastroAlunos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cadastroAlunosNome)
                     .addComponent(cadastroAlunosCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cadastroAlunosTelefone)
-                    .addComponent(cadastroAlunosMatricula, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cadastroAlunosTitulo)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cadastroAlunosSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cadastroAlunosCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                    .addComponent(cadastroAlunosMatricula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastroAlunosTitulo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cadastroAlunosSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cadastroAlunosCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(cadastroAlunosLabelTelefone)
+                            .addComponent(cadastroAlunosLabelNome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cadastroAlunosNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cadastroAlunosTelefone))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,18 +123,22 @@ public class CadastroAlunos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cadastroAlunosTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cadastroAlunosNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadastroAlunosCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cadastroAlunosTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cadastroAlunosMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroAlunosSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cadastroAlunosCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cadastroAlunosNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastroAlunosLabelNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadastroAlunosTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastroAlunosLabelTelefone))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cadastroAlunosCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(cadastroAlunosSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -123,6 +156,40 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private void cadastroAlunosCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroAlunosCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cadastroAlunosCursoActionPerformed
+
+    private void cadastroAlunosNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastroAlunosNomeMouseClicked
+  // TODO add your handling code here:
+    }//GEN-LAST:event_cadastroAlunosNomeMouseClicked
+
+    private void cadastroAlunosNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cadastroAlunosNomeFocusLost
+
+    }//GEN-LAST:event_cadastroAlunosNomeFocusLost
+
+    private void cadastroAlunosSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroAlunosSalvarActionPerformed
+        AlunosFormValidation validacaoFormulario = new AlunosFormValidation();
+
+        if (!validacaoFormulario.validarNome(cadastroAlunosNome.getText())
+                || !validacaoFormulario.validarCurso(cadastroAlunosCurso.getSelectedItem().toString())
+                || !validacaoFormulario.validarMatricula(cadastroAlunosMatricula.getSelectedItem().toString())
+                || !validacaoFormulario.validarTelefone(Integer.parseInt(cadastroAlunosTelefone.getText()))) {
+            JOptionPane.showMessageDialog(null, Constants.ALL_FIELDS_MUST_BE_FILLED);
+        } else {
+            Alunos aluno = new Alunos(
+                    cadastroAlunosNome.getText(),
+                    cadastroAlunosCurso.getSelectedItem().toString(),
+                    cadastroAlunosMatricula.getSelectedItem().toString(),
+                    Integer.parseInt(cadastroAlunosTelefone.getText()));
+
+            JOptionPane.showMessageDialog(null,
+                    Constants.ALUNOS_THE_STUDENT
+                    + aluno.getNome()
+                    + Constants.ALUNOS_WAS_SAVED);
+        }
+    }//GEN-LAST:event_cadastroAlunosSalvarActionPerformed
+
+    private void cadastroAlunosNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroAlunosNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastroAlunosNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +230,8 @@ public class CadastroAlunos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastroAlunosCancelar;
     private javax.swing.JComboBox<String> cadastroAlunosCurso;
+    private javax.swing.JLabel cadastroAlunosLabelNome;
+    private javax.swing.JLabel cadastroAlunosLabelTelefone;
     private javax.swing.JComboBox<String> cadastroAlunosMatricula;
     private javax.swing.JTextField cadastroAlunosNome;
     private javax.swing.JButton cadastroAlunosSalvar;
