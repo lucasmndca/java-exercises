@@ -6,6 +6,6 @@ Directories:
 
 1. StudentRegistration
 2. Patterns
-   _src
-    _Factory
-    _Strategy
+   - src
+     - Factory
+     - Strategy
